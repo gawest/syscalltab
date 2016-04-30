@@ -1,0 +1,7 @@
+syscalltab_test
+syscalltab.h
+_syscall_expand.h
+*.so
+*.o
+build/*
+tests/*.h
