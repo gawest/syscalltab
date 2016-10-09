@@ -36,6 +36,6 @@ After building, in the build/lib.linux directory, should be the *syscalltab.so*
 >>> #
 >>> sct.number('gettid')
 186
->>> sc.name(67)
+>>> sct.name(67)
 'shmdt'
 ```
