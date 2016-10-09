@@ -21,6 +21,27 @@ int syscall_count()
     return SC_ARRAY_LENGTH;
 }
 
+char* syscall_name(syscall_number)
+    int syscall_number;
+{
+    int iterator = 0;
+    int map_syscall = 0;
+
+    if (syscall_number < 0 || syscall_number >= SC_ARRAY_LENGTH) {
+        return NULL;
+        }
+
+    for (; iterator < SC_ARRAY_LENGTH; iterator++) {
+        map_syscall = SYSCALL_MAP[iterator].sc_value;
+
+        if (map_syscall == syscall_number) {
+            return strdup(SYSCALL_MAP[iterator].sc_name);
+            }
+        }
+
+    return NULL;
+    }
+
 int syscall_number(syscall_name)
     char* syscall_name;
 {
@@ -37,6 +58,7 @@ int syscall_number(syscall_name)
 
         if (strcmp(map_syscall, syscall_name) == 0) {
             syscall_number = SYSCALL_MAP[iterator].sc_value;
+            break;
             }
         }
 

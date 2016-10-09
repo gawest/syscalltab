@@ -6,6 +6,9 @@ static char module_docstring[] =
 static char syscall_number_docstring[] =
     "Returns system call number in unitstd.h based on input system call name \
      string. 'None' is returned if the input system call doesn't exist";
+static char syscall_name_docstring[] =
+    "Returns system call name in unitstd.h based on input number \
+     'None' is returned if the input system call doesn't exist";
 static char syscall_count_docstring[] =
     "Returns a total count of system calls available on build system";
 static char syscall_build_docstring[] =
@@ -16,11 +19,13 @@ static char syscall_build_docstring[] =
 
 static PyObject* syscalltab_syscall_count(PyObject *self, PyObject *args);
 static PyObject* syscalltab_syscall_number(PyObject *self, PyObject *args);
+static PyObject* syscalltab_syscall_name(PyObject *self, PyObject *args);
 static PyObject* syscalltab_syscall_buildinfo(PyObject *self, PyObject *args);
 
 static PyMethodDef module_methods[] = {
     {"count", syscalltab_syscall_count, METH_VARARGS, syscall_count_docstring},
     {"number", syscalltab_syscall_number, METH_VARARGS, syscall_number_docstring},
+    {"name", syscalltab_syscall_name, METH_VARARGS, syscall_name_docstring},
     {"buildinfo", syscalltab_syscall_buildinfo, METH_VARARGS, syscall_build_docstring},
     {NULL, NULL, 0, NULL}
 };
@@ -78,6 +83,26 @@ static PyObject *syscalltab_syscall_number(PyObject *self, PyObject *args)
     return NULL;
 }
 
+static PyObject *syscalltab_syscall_name(PyObject *self, PyObject *args)
+{
+    int syscallnumber;
+    char* syscallname = NULL;
+
+    if (PyArg_ParseTuple(args, "i", &syscallnumber))
+    {
+        syscallname = syscall_name(syscallnumber);
+
+        if (syscallname == NULL)
+        {
+            Py_INCREF(Py_None);
+            return Py_None;
+        }
+
+        return Py_BuildValue("s", syscallname);
+    }
+
+    return NULL;
+}
 static PyObject *syscalltab_syscall_buildinfo(PyObject *self, PyObject *args)
 {
     if (PyArg_ParseTuple(args, ""))

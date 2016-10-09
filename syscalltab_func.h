@@ -4,3 +4,4 @@ int _syscall_kverify(void);
 
 int syscall_count(void);
 int syscall_number(char*);
+char* syscall_name(int);

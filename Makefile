@@ -23,7 +23,6 @@ clean:
                   $(UNISTD_TEST_H) \
                   $(SYSCALL_EXPAND_H) \
                   $(TEST_DIR)/*.{so,h}
-
 	rm -rf $(BUILD_DIR)
 
 test: build build_test
