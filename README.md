@@ -34,10 +34,8 @@ After building, in the build/lib.linux directory, should be the *syscalltab.so*
 >>> #
 >>> # get the system call number for 'open', 'gettid' and 'sethostname'
 >>> #
->>> sct.number('open')
-2
 >>> sct.number('gettid')
 186
->>> sct.number('sethostname')
-170
+>>> sc.name(67)
+'shmdt'
 ```
